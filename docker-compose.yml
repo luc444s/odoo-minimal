@@ -2,9 +2,9 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: odoo
-      POSTGRES_USER: odoo
-      POSTGRES_PASSWORD: odoo
+      POSTGRES_DB: ${APP_DB_NAME}
+      POSTGRES_USER: ${APP_DB_USER}
+      POSTGRES_PASSWORD: ${APP_DB_PASSWORD}
     user: "70:70"
     read_only: true
     tmpfs:
@@ -25,9 +25,9 @@ services:
         condition: service_healthy
     environment:
       HOST: db
-      USER: odoo
-      PASSWORD: odoo
-    command: ["-i", "base", "-d", "odoo", "--data-dir=/run/odoo", "--http-port=8080"]
+      USER: ${APP_DB_USER}
+      PASSWORD: ${APP_DB_PASSWORD}
+    command: ["-i", "base", "-d", "${APP_DB_NAME}", "--data-dir=/run/odoo", "--http-port=8080"]
     user: "101:101"
     read_only: true
     tmpfs:
