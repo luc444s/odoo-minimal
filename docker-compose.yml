@@ -12,3 +12,5 @@ services:
       HOME: /tmp
       ESPHOME_DASHBOARD_USE_PING: "true"
     command: ["dashboard", "/tmp/config", "--port", "8069"]
+    healthcheck:
+      disable: true
