@@ -14,11 +14,11 @@ services:
       - db_data:/var/lib/postgresql/data
     networks: [internal]
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U odoo -d odoo"]
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 10s
       timeout: 5s
       retries: 10
-  frontend:
+  web:
     image: odoo:17.0
     depends_on:
       db:
@@ -27,7 +27,7 @@ services:
       HOST: db
       USER: ${APP_DB_USER}
       PASSWORD: ${APP_DB_PASSWORD}
-    command: ["-i", "base", "-d", "${APP_DB_NAME}", "--data-dir=/run/odoo", "--http-port=8080"]
+    command: ["-i", "base", "-d", "${APP_DB_NAME}", "--data-dir=/run/odoo"]
     user: "101:101"
     read_only: true
     tmpfs:
