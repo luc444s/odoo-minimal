@@ -18,7 +18,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 10
-  web:
+  frontend:
     image: odoo:17.0
     depends_on:
       db:
@@ -27,7 +27,7 @@ services:
       HOST: db
       USER: odoo
       PASSWORD: odoo
-    command: ["-i", "base", "-d", "odoo", "--data-dir=/run/odoo"]
+    command: ["-i", "base", "-d", "odoo", "--data-dir=/run/odoo", "--http-port=8080"]
     user: "101:101"
     read_only: true
     tmpfs:
