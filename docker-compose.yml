@@ -1,0 +1,14 @@
+services:
+  web:
+    image: ghcr.io/esphome/esphome:2026.10.2
+    container_name: esphome
+    privileged: true
+    network_mode: host
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./config:/config
+    environment:
+      HOME: /tmp
+      ESPHOME_DASHBOARD_USE_PING: "true"
+    command: ["dashboard", "/tmp/config", "--port", "8069"]
